@@ -31,7 +31,6 @@ Stage: run
 %files from build
     builds/release/bin/
     driver
-    libtorch
     requirements.txt
     run.py
     train.py
