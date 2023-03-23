@@ -1,0 +1,76 @@
+# Stage 1: Compile the planner
+Bootstrap: docker
+From: ubuntu:focal
+Stage: build
+
+%files
+    .
+
+%post
+    ## Install all necessary dependencies.
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get -y install cmake python3 make g++ unzip wget
+
+    ## Get libtorch for C++.
+    wget --quiet https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
+    unzip libtorch-shared-with-deps-latest.zip
+    export Torch_DIR=$(pwd)/libtorch
+
+    ## Build the planner.
+    ./build.py -j4
+    strip --strip-all builds/release/bin/downward
+
+
+# Stage 2: Run the planner
+Bootstrap: docker
+From: ubuntu:focal
+Stage: run
+
+# Copy planner binary and required files from Stage 1.
+%files from build
+    builds/release/bin/
+    driver
+    libtorch
+    requirements.txt
+    run.py
+    train.py
+    test.py
+    fast-downward.py
+
+%post
+    ## Install only dependencies for running the planner.
+    apt-get update
+    apt-get -y install python3-minimal python3-pip
+    python3 -m pip install --no-cache-dir -r requirements.txt
+
+    ## Remove unnecessary files to keep the image small.
+    rm -rf /var/lib/apt/lists/*
+
+# The runscript is called whenever the container is used to solve an instance.
+%runscript
+    DOMAINFILE="$1"
+    PROBLEMFILE="$2"
+    PLANFILE="$3"
+
+    /run.py \
+        "$DOMAINFILE" \
+        "$PROBLEMFILE" \
+        "$PLANFILE"
+
+## Define meta data
+%labels
+Name        FSM
+Description A learning-based planner for short-time sampling, training, and testing.
+Authors     Gustavo Prolla Lacroix <gplacroix@inf.ufrgs.br>, Rafael Vales Bettker <rvbettker@inf.ufrgs.br>, André Grahl Pereira <agpereira@inf.ufrgs.br>
+License     GPL 3
+Tracks      satisficing, agile
+SupportsDerivedPredicates                       no
+SupportsUniversallyQuantifiedPreconditions      no
+SupportsExistentiallyQuantifiedPreconditions    no
+SupportsUniversallyQuantifiedEffects            no
+SupportsNegativePreconditions                   no
+SupportsEqualityPreconditions                   no
+SupportsInequalityPreconditions                 no
+SupportsConditionalEffects                      no
+SupportsImplyPreconditions                      no
