@@ -6,7 +6,7 @@ import src.pytorch.utils.default_args as default_args
 
 _log = logging.getLogger(__name__)
 
-_FD = "./fast-downward.py"
+_FD = "/fast-downward.py"
 _FD_EXIT_CODE = {
     0: "success",
     1: "search plan found and out of memory",

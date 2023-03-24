@@ -30,6 +30,7 @@ Stage: run
 # Copy planner binary and required files from Stage 1.
 %files from build
     builds/release/bin/
+    libtorch/lib
     driver
     src/pytorch
     requirements.txt

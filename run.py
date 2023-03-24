@@ -29,7 +29,7 @@ FACTS_FILE = os.path.join(TEST_FOLDER, f"facts_file")
 TRAIN_FOLDER = os.path.join(TEST_FOLDER, f"test_folder")
 
 SAMPLING_COMMANDLINE = (
-    f'./fast-downward.py --sas-file {os.path.join(TEST_FOLDER, "sampling-output.sas")} --plan-file {SAMPLE_FILE} '
+    f'/fast-downward.py --sas-file {os.path.join(TEST_FOLDER, "sampling-output.sas")} --plan-file {SAMPLE_FILE} '
     f"--build release {DOMAIN_FILE} {PROBLEM_FILE} "
     f'--search "sampling_search_fsm(eager_greedy([ff(transform=sampling_transform())], transform=sampling_transform()), '
     f"techniques=[gbackward_fsm("
@@ -53,10 +53,10 @@ SAMPLING_COMMANDLINE = (
     f'random_seed={default_args.DEFAULT_SEED})"'
 )
 TRAIN_COMMANDLINE = (
-    f"./train.py {SAMPLE_FILE} --train-folder {TRAIN_FOLDER} --facts-file {FACTS_FILE}"
+    f"/train.py {SAMPLE_FILE} --train-folder {TRAIN_FOLDER} --facts-file {FACTS_FILE}"
 )
 TEST_COMMANDLINE = (
-    f"./test.py {TRAIN_FOLDER} {PROBLEM_FILE} --plan-file {PLAN_FILE} --facts-file {FACTS_FILE}"
+    f"/test.py {TRAIN_FOLDER} {PROBLEM_FILE} --plan-file {PLAN_FILE} --facts-file {FACTS_FILE}"
     + (f" --domain-pddl {DOMAIN_FILE}" if DOMAIN_FILE else "")
 )
 
