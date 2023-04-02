@@ -12,10 +12,12 @@ Stage: build
     apt-get update
     apt-get -y install cmake python3 make g++ unzip wget
 
-    ## Get libtorch for C++.
-    wget --quiet https://download.pytorch.org/libtorch/nightly/cpu/libtorch-shared-with-deps-latest.zip
-    unzip libtorch-shared-with-deps-latest.zip
-    export Torch_DIR=$(pwd)/libtorch
+    ## Unzip C++ libtorch.
+    cat third_party/libtorch.part1.zip third_party/libtorch.part2.zip third_party/libtorch.part3.zip \
+        third_party/libtorch.part4.zip third_party/libtorch.part5.zip third_party/libtorch.part6.zip \
+        third_party/libtorch.part7.zip third_party/libtorch.part8.zip > third_party/libtorch.full.zip
+    unzip third_party/libtorch.full.zip -d third_party
+    export Torch_DIR=$(pwd)/third_party/libtorch
 
     ## Build the planner.
     ./build.py -j4
