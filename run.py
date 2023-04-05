@@ -8,7 +8,7 @@ from src.pytorch.utils import default_args
 
 DOMAIN_FILE, PROBLEM_FILE, PLAN_FILE = argv[1:4]
 
-OUTPUT_FOLDER = "results"
+OUTPUT_FOLDER = "FSM.results"
 TEST_FOLDER = os.path.join(
     OUTPUT_FOLDER,
     ".".join(
