@@ -564,6 +564,8 @@ vector<shared_ptr<PartialAssignment>> TechniqueGBackwardFsm::create_next_all(
         else
             utils::g_log << "[Sampling] Looking for more samples until mem/time budget runs out." << endl;
 
+        float pct_for_next_print = bfs_percentage;
+        int total_rw_samples = 0, total_rollouts = 0;
         int lid = 0;
         vector<bool> leaves_used(leaves.size(), false);
         while ((samples.size() < (unsigned)max_samples) && !stopped) {
@@ -585,8 +587,13 @@ vector<shared_ptr<PartialAssignment>> TechniqueGBackwardFsm::create_next_all(
                 bfs_core
             );
             samples.insert(samples.end(), samples_.begin(), samples_.end());
-            utils::g_log << "[Sampling] RW rollout sampled " << samples_.size() << " states. "
-                << "Total: " << samples.size() << "/" << max_samples << endl;
+            total_rw_samples += samples_.size();
+            total_rollouts++;
+            if ((float)samples.size() / max_samples > pct_for_next_print || samples.size() >= (unsigned)max_samples) {
+                pct_for_next_print += 0.1;
+                utils::g_log << "[Sampling] RW: " << total_rw_samples << " states sampled in " << total_rollouts
+                    << " rollouts (avg: " << ((float)total_rw_samples / total_rollouts) << ")" << endl;
+            }
         }
     }
 
