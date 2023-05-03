@@ -109,8 +109,6 @@ def solve_instance_with_fd(
         if domain_pddl != default_args.TEST_DOMAIN_PDDL:
             cl.insert(3, domain_pddl)
         if plan_file:
-            cl.insert(1, "--sas-file")
-            cl.insert(2, f"{plan_file}-output.sas")
             cl.insert(3, "--plan-file")
             cl.insert(4, plan_file)
         elif save_log_to:

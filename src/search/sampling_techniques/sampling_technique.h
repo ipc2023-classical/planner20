@@ -9,7 +9,7 @@
 #include "../utils/rng_options.h"
 #include "../utils/countdown_timer.h"
 #include "../utils/memory.h"
-#include "../trie/trie.h"
+#include "../ext/trie.h"
 
 #include <memory>
 #include <ostream>
