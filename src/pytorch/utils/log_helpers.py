@@ -103,7 +103,7 @@ def logging_test_config(
         "plan_file": args.plan_file if args.plan_file != "" else None,
         "max_search_time": f"{args.max_search_time}s",
         "max_search_memory": f"{args.max_search_memory} MB",
-        "max_expansions": args.max_expansions,
+        "max_expansions": args.max_expansions if args.max_expansions != float("inf") else "inf",
     }
     if args.heuristic == "nn":
         args_dic["test_model"] = args.test_model
