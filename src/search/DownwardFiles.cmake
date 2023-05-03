@@ -454,17 +454,6 @@ fast_downward_plugin(
 )
 
 fast_downward_plugin(
-    NAME TRIE
-    HELP "Plugin containing the code for the Trie"
-    SOURCES
-        trie/trie_node
-        trie/trie_util
-        trie/trie_iterator
-        trie/trie
-    DEPENDENCY_ONLY
-)
-
-fast_downward_plugin(
     NAME SAMPLING_SEARCH
     HELP "Sampling search algorithm"
     SOURCES

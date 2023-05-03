@@ -8,7 +8,7 @@
 
 #include "sample_cache.h"
 
-#include "../trie/trie.h"
+#include "../ext/trie.h"
 
 #include <functional>
 #include <memory>

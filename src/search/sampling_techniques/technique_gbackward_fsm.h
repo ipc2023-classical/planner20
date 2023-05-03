@@ -2,7 +2,7 @@
 #define SAMPLING_TECHNIQUES_TECHNIQUE_GBACKWARD_FSM_H
 
 #include <unordered_map>
-#include "../trie/trie.h"
+#include "../ext/trie.h"
 
 #include "sampling_technique.h"
 #include "../task_proxy.h"
